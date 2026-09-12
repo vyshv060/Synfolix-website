@@ -126,6 +126,12 @@ export default function Header({ theme, toggleTheme, fontSizeIndex, applyFontSiz
               </a>
             );
           })}
+          <div className="mobile-menu-footer">
+            <a href="#contact" className="btn btn-primary btn-glow mobile-nav-cta" onClick={handleCtaClick}>
+              <span>Build With Synfolix</span>
+              <ArrowRight size={16} />
+            </a>
+          </div>
         </nav>
 
         <div className="header-actions">
