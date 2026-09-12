@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script>
+    (function() {
+      var saved = localStorage.getItem('synfolix-theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synfolix — Digital Product & Technology Development Company</title>
+  
+  <meta name="title" content="Synfolix — Digital Product & Technology Development Company" />
+  <meta name="description" content="We build digital products that solve real business problems. Proprietary software products and custom digital platforms built for businesses, startups, and enterprises." />
+  <meta name="keywords" content="Synfolix, Software Product Company, Custom Software Development, Digital Transformation, Healthcare HMS, CRM, Legal Software, EdTech, AI Solutions" />
+  <meta name="author" content="Synfolix Technologies" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
