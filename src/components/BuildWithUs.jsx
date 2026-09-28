@@ -1,4 +1,19 @@
+import { useCallback } from 'react';
+
 export default function BuildWithUs() {
+  const handleMouseMove = useCallback((e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+  }, []);
+
+  const handleMouseLeave = useCallback((e) => {
+    e.currentTarget.style.removeProperty('--mouse-x');
+    e.currentTarget.style.removeProperty('--mouse-y');
+  }, []);
+
   const steps = [
     { num: '01', title: 'Discovery & Scope', desc: 'Define technical architecture, system design, and MVP scope.' },
     { num: '02', title: 'UI/UX Engineering', desc: 'Craft high-converting, modern glassmorphic interface designs.' },
@@ -25,7 +40,11 @@ export default function BuildWithUs() {
           <div className="journey-stepper">
             {steps.map((s, idx) => (
               <div key={idx} style={{ display: 'contents' }}>
-                <div className="step-card">
+                <div 
+                  className="step-card spotlight-card"
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={handleMouseLeave}
+                >
                   <div className="step-num">{s.num}</div>
                   <div className="step-title">{s.title}</div>
                   <div className="step-desc">{s.desc}</div>

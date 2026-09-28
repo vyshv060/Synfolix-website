@@ -1,4 +1,19 @@
+import { useCallback } from 'react';
+
 export default function Process() {
+  const handleMouseMove = useCallback((e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+  }, []);
+
+  const handleMouseLeave = useCallback((e) => {
+    e.currentTarget.style.removeProperty('--mouse-x');
+    e.currentTarget.style.removeProperty('--mouse-y');
+  }, []);
+
   const steps = [
     { num: '01', title: 'Consultation', desc: 'In-depth requirement analysis & solution mapping.' },
     { num: '02', title: 'Architecture', desc: 'DB schema, security & API blueprinting.' },
@@ -23,7 +38,12 @@ export default function Process() {
 
         <div className="process-timeline">
           {steps.map((s, idx) => (
-            <div className="process-step" key={idx}>
+            <div 
+              className="process-step spotlight-card" 
+              key={idx}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
               <div className="proc-num">{s.num}</div>
               <div className="proc-content">
                 <h3>{s.title}</h3>

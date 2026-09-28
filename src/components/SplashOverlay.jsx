@@ -28,7 +28,6 @@ export default function SplashOverlay() {
         <div className="splash-logo-wrap">
           <img src={synfolixLogo} alt="Synfolix Logo" className="splash-logo-img" />
         </div>
-        <div className="splash-title">SYNFOLIX<span className="splash-dot">.</span></div>
       </div>
     </div>
   );
