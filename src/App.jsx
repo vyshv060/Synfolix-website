@@ -3,6 +3,7 @@ import SplashOverlay from './components/SplashOverlay';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Pillars from './components/Pillars';
+import Leadership from './components/Leadership';
 import ProductsSection from './components/ProductsSection';
 import BuildWithUs from './components/BuildWithUs';
 import TechStack from './components/TechStack';
@@ -41,6 +42,7 @@ export default function App() {
       <Header />
       <Hero />
       <Pillars />
+      <Leadership />
       <ProductsSection openDemoModal={openDemoModal} />
       <BuildWithUs />
       <TechStack />

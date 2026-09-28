@@ -10,6 +10,7 @@ export default function Header() {
   const navItems = [
     { label: 'Home', href: '#hero', id: 'hero' },
     { label: 'About', href: '#about-synfolix', id: 'about-synfolix', aliases: ['about'] },
+    { label: 'Leadership', href: '#leadership', id: 'leadership' },
     { label: 'Products', href: '#products', id: 'products' },
     { label: 'Solutions', href: '#build-with-us', id: 'build-with-us' },
     { label: 'Industries', href: '#industries', id: 'industries' },
@@ -25,6 +26,7 @@ export default function Header() {
       const sectionIds = [
         'hero',
         'about-synfolix',
+        'leadership',
         'products',
         'build-with-us',
         'industries',

@@ -48,6 +48,7 @@ export default function Footer() {
               <h4>Company</h4>
               <ul>
                 <li><a href="#about-synfolix">About Synfolix</a></li>
+                <li><a href="#leadership">Leadership</a></li>
                 <li><a href="#work">Case Studies</a></li>
                 <li><a href="#process">Our Process</a></li>
                 <li><a href="#contact">Contact Us</a></li>
