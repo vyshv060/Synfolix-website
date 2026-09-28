@@ -1,36 +1,50 @@
+import { useCallback } from 'react';
 import { HeartPulse, Briefcase, BookOpen, Coins, Rocket, Building2 } from 'lucide-react';
 
 export default function Industries() {
+  const handleMouseMove = useCallback((e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+  }, []);
+
+  const handleMouseLeave = useCallback((e) => {
+    e.currentTarget.style.removeProperty('--mouse-x');
+    e.currentTarget.style.removeProperty('--mouse-y');
+  }, []);
+
   const industries = [
     {
       icon: HeartPulse,
       title: 'Healthcare & Clinical Systems',
       desc: 'IPD/OPD management, pharmacy dispensing, EHR & multi-specialty hospital platforms.',
-      detail: 'HIPAA-grade data privacy, HL7/FHIR ready pipelines, and offline-capable clinical workstations.'
+      detail: 'HIPAA-grade data privacy, HL7/FHIR ready pipelines, and offline clinical workstations.'
     },
     {
       icon: Briefcase,
       title: 'Case Management & Legal Tech',
       desc: 'Legal document generation, hearing date tracking, advocate portals & client retainer management.',
-      detail: 'Encrypted document vault, automated case status SMS alerts, and lawyer billable hour logs.'
+      detail: 'Encrypted document vault, automated case status SMS alerts, and billable hour logs.'
     },
     {
       icon: BookOpen,
       title: 'EdTech & Campus Portals',
       desc: 'Academic management, online exam proctoring, faculty scheduling & parent fee portals.',
-      detail: 'Scalable to 100k+ concurrent online students with real-time video lecture bandwidth optimizations.'
+      detail: 'Scalable to 100k+ concurrent online students with real-time video optimizations.'
     },
     {
       icon: Coins,
       title: 'FinTech & Commerce Systems',
       desc: 'Payment gateway integrations, invoice automation, POS checkout & financial ledger reporting.',
-      detail: 'PCI-DSS compliant architecture, multi-currency ledger tracking, and automated tax reporting.'
+      detail: 'PCI-DSS compliant architecture, multi-currency tracking, and automated tax reporting.'
     },
     {
       icon: Rocket,
       title: 'Startups & Scale-up MVPs',
       desc: 'Rapid product design, proof-of-concept prototypes & scalable architecture for high-growth tech ventures.',
-      detail: 'Deploy market-ready MVPs in under 6 weeks with modular microservices for seamless investor pitching.'
+      detail: 'Deploy market-ready MVPs in under 6 weeks with modular microservices.'
     },
     {
       icon: Building2,
@@ -49,31 +63,28 @@ export default function Industries() {
             Industry Solutions <span className="gradient-text">Engineered for Impact</span>
           </h2>
           <p className="section-desc">
-            Deep domain expertise across high-demand business sectors. Hover over any card to inspect technical deployment specs.
+            Deep domain expertise across high-demand business sectors with dedicated enterprise deployments.
           </p>
         </div>
 
-        <div className="industries-3d-grid">
+        <div className="industries-grid">
           {industries.map((ind, idx) => {
             const Icon = ind.icon;
             return (
-              <div className="card-3d-wrap" key={idx}>
-                <div className="card-3d-inner">
-                  <div className="card-face card-front industry-front">
-                    <div className="ind-icon">
-                      <Icon size={22} />
-                    </div>
-                    <div>
-                      <h3>{ind.title}</h3>
-                      <p>{ind.desc}</p>
-                    </div>
-                  </div>
-                  <div className="card-face card-back industry-back">
-                    <div>
-                      <h4>Technical Deployment Specs</h4>
-                      <p>{ind.detail}</p>
-                    </div>
-                  </div>
+              <div 
+                className="industry-card spotlight-card" 
+                key={idx}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div className="ind-icon">
+                  <Icon size={24} />
+                </div>
+                <h3>{ind.title}</h3>
+                <p className="ind-desc">{ind.desc}</p>
+                <div className="ind-detail-tag">
+                  <span className="ind-detail-label">Specs: </span>
+                  <span>{ind.detail}</span>
                 </div>
               </div>
             );

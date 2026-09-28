@@ -1,3 +1,5 @@
+import synfolixLogo from '../assets/synfolix-logo.png';
+
 export default function Footer() {
   return (
     <footer className="site-footer">
@@ -5,7 +7,7 @@ export default function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <a href="#hero" className="brand-logo">
-              <img src="/v quality synfolix pvt ltd.png" alt="Synfolix Logo" className="site-logo-img" />
+              <img src={synfolixLogo} alt="Synfolix Logo" className="site-logo-img" />
               <span className="logo-text">SYNFOLIX<span className="logo-dot">.</span></span>
             </a>
             <p className="footer-tagline">We build digital products that solve real business problems across industries.</p>

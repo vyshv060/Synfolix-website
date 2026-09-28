@@ -1,6 +1,20 @@
+import { useCallback } from 'react';
 import { Globe, Server, Cloud, Sparkles } from 'lucide-react';
 
 export default function TechStack() {
+  const handleMouseMove = useCallback((e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+  }, []);
+
+  const handleMouseLeave = useCallback((e) => {
+    e.currentTarget.style.removeProperty('--mouse-x');
+    e.currentTarget.style.removeProperty('--mouse-y');
+  }, []);
+
   return (
     <section className="section section-tech" id="technology">
       <div className="container">
@@ -16,7 +30,11 @@ export default function TechStack() {
 
         <div className="tech-grid">
           {/* Card 1 */}
-          <div className="tech-card">
+          <div 
+            className="tech-card spotlight-card"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
             <div className="tech-header">
               <Globe className="tech-cat-icon" />
               <h3>Frontend & Mobile Apps</h3>
@@ -33,7 +51,11 @@ export default function TechStack() {
           </div>
 
           {/* Card 2 */}
-          <div className="tech-card">
+          <div 
+            className="tech-card spotlight-card"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
             <div className="tech-header">
               <Server className="tech-cat-icon" />
               <h3>Backend & DB</h3>
@@ -49,7 +71,11 @@ export default function TechStack() {
           </div>
 
           {/* Card 3 */}
-          <div className="tech-card">
+          <div 
+            className="tech-card spotlight-card"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
             <div className="tech-header">
               <Cloud className="tech-cat-icon" />
               <h3>Cloud & DevOps</h3>
@@ -65,7 +91,11 @@ export default function TechStack() {
           </div>
 
           {/* Card 4 */}
-          <div className="tech-card">
+          <div 
+            className="tech-card spotlight-card"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
             <div className="tech-header">
               <Sparkles className="tech-cat-icon" />
               <h3>AI & Real-Time</h3>

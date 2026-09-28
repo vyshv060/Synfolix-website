@@ -1,5 +1,6 @@
+import { useCallback } from 'react';
 import { useState } from 'react';
-import { RefreshCw } from 'lucide-react';
+import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function ProductsSection({ openDemoModal }) {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -12,11 +13,11 @@ export default function ProductsSection({ openDemoModal }) {
       desc: 'Complete Hospital Management System connecting admissions, IPD/OPD, pharmacy, billing, doctor schedules & lab records.',
       badge: 'Healthcare Suite',
       tags: ['IPD / OPD', 'Lab & Pharmacy', 'Billing'],
-      meta: 'Hospitals, Clinics, Multi-specialty Healthcare Chains',
+      meta: 'Hospitals, Clinics & Healthcare Chains',
       features: [
-        { label: 'Patient & EHR Records', desc: 'Centralized medical histories & prescription records' },
-        { label: 'IPD / OPD Billing', desc: 'Itemized invoices & payment tracking' },
-        { label: 'Pharmacy & Lab Sync', desc: 'Real-time stock dispensing & test reporting' }
+        'Centralized EHR & patient histories',
+        'Automated IPD/OPD itemized billing',
+        'Live pharmacy dispensing & lab sync'
       ]
     },
     {
@@ -26,11 +27,11 @@ export default function ProductsSection({ openDemoModal }) {
       desc: 'Unified Employee Management & CRM system with attendance tracking, leave workflows, payslips, task manager & team chat.',
       badge: 'Enterprise CRM',
       tags: ['Attendance', 'Leaves & Payslips', 'Team Chat'],
-      meta: 'SMBs, Enterprises, Tech Consultancies',
+      meta: 'SMBs, Enterprises & Consultancies',
       features: [
-        { label: 'Attendance & WFH', desc: 'Geolocation & biometric shift tracking' },
-        { label: 'Payroll & Payslips', desc: 'Automated monthly salary calculation & PDF generator' },
-        { label: 'Tasks & Real-time Chat', desc: 'Kanban boards & encrypted internal chat' }
+        'Geolocation & biometric shift tracking',
+        'Automated payroll calculation & PDF payslips',
+        'Kanban task boards & encrypted internal chat'
       ]
     },
     {
@@ -40,10 +41,11 @@ export default function ProductsSection({ openDemoModal }) {
       desc: 'Batch-level inventory tracking, medicine dispensing, customer returns & prescription management.',
       badge: 'Pharmacy Tech',
       tags: ['Batch Tracking', 'Expiry Alerts', 'Stock Control'],
-      meta: 'Retail Pharmacies, Hospital Chemists, Pharma Chains',
+      meta: 'Retail Pharmacies, Hospital Chemists & Chains',
       features: [
-        { label: 'Batch & Expiry Control', desc: 'Prevent expired medicine sales with automated warnings' },
-        { label: 'Reorder Alerts', desc: 'Low stock notifications & supplier purchase orders' }
+        'Batch & expiry date warning alerts',
+        'Low stock reordering & purchase orders',
+        'Fast POS barcode billing & GST invoices'
       ]
     },
     {
@@ -53,20 +55,27 @@ export default function ProductsSection({ openDemoModal }) {
       desc: 'Case management, court date tracking, legal document automation, client invoicing, and advocate collaboration portal.',
       badge: 'Legal Technology',
       tags: ['Case Records', 'Court Schedules', 'Document Templates'],
-      meta: 'Law Firms, Corporate Legal Teams, Independent Practitioners',
+      meta: 'Law Firms, In-House Counsel & Advocates',
       features: [
-        { label: 'Case Lifecycle Tracking', desc: 'Store hearing dates, evidence & judge notes' },
-        { label: 'Document Automation', desc: 'Draft petitions & notices with custom templates' },
-        { label: 'Client Portal & Billing', desc: 'Retainer management & time-tracking invoice generation' }
+        'Case lifecycle & court hearing dates',
+        'Automated legal document & petition templates',
+        'Retainer billing & time-tracking invoices'
       ]
     }
   ];
 
-  const [flippedCards, setFlippedCards] = useState({});
+  const handleMouseMove = useCallback((e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+  }, []);
 
-  const toggleFlip = (id) => {
-    setFlippedCards(prev => ({ ...prev, [id]: !prev[id] }));
-  };
+  const handleMouseLeave = useCallback((e) => {
+    e.currentTarget.style.removeProperty('--mouse-x');
+    e.currentTarget.style.removeProperty('--mouse-y');
+  }, []);
 
   const filteredProducts = activeFilter === 'all' 
     ? products 
@@ -81,7 +90,7 @@ export default function ProductsSection({ openDemoModal }) {
             Our Proprietary <span className="gradient-text">Product Portfolio</span>
           </h2>
           <p className="section-desc">
-            Explore our flagship software products. Hover over any card to flip and inspect features, target deployment sectors, and request a live demonstration.
+            Explore our flagship software platforms. Click on any product card to request a live demonstration.
           </p>
 
           <div className="product-filter-tabs" style={{ justifyContent: 'center', marginTop: '24px' }}>
@@ -92,77 +101,55 @@ export default function ProductsSection({ openDemoModal }) {
           </div>
         </div>
 
-        <div className="products-3d-grid">
+        <div className="products-grid">
           {filteredProducts.map(p => (
             <div 
-              className={`card-3d-wrap ${flippedCards[p.id] ? 'is-flipped' : ''}`} 
+              className="product-card spotlight-card" 
               key={p.id} 
               data-category={p.category}
-              onClick={() => toggleFlip(p.id)}
-              title="Hover or tap to flip card"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => openDemoModal(p.title)}
+              title={`Click to request live demo for ${p.title}`}
             >
-              <div className="card-3d-inner">
-                {/* Front */}
-                <div className="card-face card-front">
-                  <div>
-                    <div className="card-header-badge">{p.badge}</div>
-                    <h3 className="product-card-title">{p.title}</h3>
-                    <p className="product-card-desc">{p.desc}</p>
-                  </div>
-                  <div>
-                    <div className="card-features-mini">
-                      {p.tags.map((t, idx) => <span key={idx} className="mini-tag">{t}</span>)}
+              <div className="product-card-top">
+                <div className="card-header-badge">{p.badge}</div>
+                <h3 className="product-card-title">{p.title}</h3>
+                <p className="product-card-desc">{p.desc}</p>
+                
+                <div className="product-card-features">
+                  {p.features.map((feat, idx) => (
+                    <div key={idx} className="product-feature-row">
+                      <CheckCircle2 size={15} className="feature-icon" />
+                      <span>{feat}</span>
                     </div>
-                    <div className="flip-hint">
-                      <RefreshCw size={13} className="flip-icon" />
-                      <span>Hover or tap to inspect back details</span>
-                    </div>
-                  </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="product-card-bottom">
+                <div className="card-features-mini">
+                  {p.tags.map((t, idx) => <span key={idx} className="mini-tag">{t}</span>)}
                 </div>
 
-                {/* Back */}
-                <div className="card-face card-back">
-                  <div className="back-content">
-                    <div>
-                      <div className="back-card-header">
-                        <span className="back-card-badge">{p.badge}</span>
-                        <h4 className="back-card-title">{p.title}</h4>
-                      </div>
-
-                      <div className="back-features-wrapper">
-                        <div className="back-section-label">Key Capabilities & Modules</div>
-                        <ul className="back-feature-list">
-                          {p.features.map((f, idx) => (
-                            <li key={idx}>
-                              <span className="feature-check">✓</span>
-                              <div>
-                                <strong>{f.label}: </strong>
-                                <span>{f.desc}</span>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="back-meta">
-                        <span className="meta-label">Built for: </span>
-                        <span className="meta-value">{p.meta}</span>
-                      </div>
-                    </div>
-
-                    <div className="back-card-footer">
-                      <button 
-                        type="button" 
-                        className="btn btn-primary btn-sm btn-glow" 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openDemoModal(p.title);
-                        }}
-                      >
-                        <span>Request Live Demo</span>
-                      </button>
-                    </div>
+                <div className="product-card-footer-row">
+                  <div className="product-card-meta">
+                    <span className="meta-label">Built for: </span>
+                    <span className="meta-val">{p.meta}</span>
                   </div>
+
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-sm btn-glow"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openDemoModal(p.title);
+                    }}
+                  >
+                    <Sparkles size={14} />
+                    <span>Request Demo</span>
+                    <ArrowRight size={13} />
+                  </button>
                 </div>
               </div>
             </div>

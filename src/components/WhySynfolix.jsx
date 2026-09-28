@@ -1,6 +1,20 @@
+import { useCallback } from 'react';
 import { Shield, Zap, Layers, Lock } from 'lucide-react';
 
 export default function WhySynfolix() {
+  const handleMouseMove = useCallback((e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+  }, []);
+
+  const handleMouseLeave = useCallback((e) => {
+    e.currentTarget.style.removeProperty('--mouse-x');
+    e.currentTarget.style.removeProperty('--mouse-y');
+  }, []);
+
   const points = [
     {
       icon: Shield,
@@ -41,7 +55,12 @@ export default function WhySynfolix() {
           {points.map((p, idx) => {
             const Icon = p.icon;
             return (
-              <div className="why-card" key={idx}>
+              <div 
+                className="why-card spotlight-card" 
+                key={idx}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
                 <div className="why-icon">
                   <Icon size={24} />
                 </div>

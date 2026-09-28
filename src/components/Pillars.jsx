@@ -1,6 +1,20 @@
+import { useCallback } from 'react';
 import { Box, Code2, CheckCircle2 } from 'lucide-react';
 
 export default function Pillars() {
+  const handleMouseMove = useCallback((e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+  }, []);
+
+  const handleMouseLeave = useCallback((e) => {
+    e.currentTarget.style.removeProperty('--mouse-x');
+    e.currentTarget.style.removeProperty('--mouse-y');
+  }, []);
+
   return (
     <section className="section section-about" id="about-synfolix">
       <span id="about" style={{ display: 'block', position: 'relative', top: '-105px', visibility: 'hidden' }}></span>
@@ -17,7 +31,11 @@ export default function Pillars() {
 
         <div className="dual-pillar-grid">
           {/* Pillar 1 */}
-          <div className="pillar-card">
+          <div 
+            className="pillar-card spotlight-card"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
             <div className="pillar-icon">
               <Box size={28} />
             </div>
@@ -35,7 +53,11 @@ export default function Pillars() {
           </div>
 
           {/* Pillar 2 */}
-          <div className="pillar-card">
+          <div 
+            className="pillar-card spotlight-card"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
             <div className="pillar-icon">
               <Code2 size={28} />
             </div>

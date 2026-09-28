@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import synfolixLogo from '../assets/synfolix-logo.png';
 
 export default function SplashOverlay() {
   const [fadeOut, setFadeOut] = useState(false);
@@ -25,7 +26,7 @@ export default function SplashOverlay() {
     <div className={`splash-overlay ${fadeOut ? 'fade-out' : ''}`} id="splashOverlay">
       <div className="splash-content">
         <div className="splash-logo-wrap">
-          <img src="/v quality synfolix pvt ltd.png" alt="Synfolix Logo" className="splash-logo-img" />
+          <img src={synfolixLogo} alt="Synfolix Logo" className="splash-logo-img" />
         </div>
         <div className="splash-title">SYNFOLIX<span className="splash-dot">.</span></div>
       </div>

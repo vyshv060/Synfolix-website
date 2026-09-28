@@ -696,72 +696,99 @@ img {
   border-color: transparent;
 }
 
-.products-3d-grid {
+.products-3d-grid,
+.products-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
   margin-top: 40px;
 }
 
-.card-3d-wrap {
-  perspective: 1200px;
-  height: 410px;
-  cursor: pointer;
-}
-
-.card-3d-inner {
+/* Cursor Spotlight Glow Effect on Cards */
+.spotlight-card,
+.product-card,
+.industry-card,
+.pillar-card,
+.tech-card,
+.why-card,
+.step-card {
   position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
-  transform-style: preserve-3d;
+  overflow: hidden;
 }
 
-/* Flip on Hover & Touch/Click Flip */
-.card-3d-wrap:hover .card-3d-inner,
-.card-3d-wrap.is-flipped .card-3d-inner {
-  transform: rotateY(180deg);
-}
-
-.card-face {
+.spotlight-card::before,
+.product-card::before,
+.industry-card::before,
+.pillar-card::before,
+.tech-card::before,
+.why-card::before,
+.step-card::before {
+  content: '';
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: var(--radius-lg);
-  padding: 28px 30px;
+  border-radius: inherit;
+  background: radial-gradient(
+    320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(0, 201, 183, 0.24) 0%,
+    rgba(0, 201, 183, 0.08) 45%,
+    transparent 80%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity 0.25s ease;
+}
+
+[data-theme="light"] .spotlight-card::before,
+[data-theme="light"] .product-card::before,
+[data-theme="light"] .industry-card::before,
+[data-theme="light"] .pillar-card::before,
+[data-theme="light"] .tech-card::before,
+[data-theme="light"] .why-card::before,
+[data-theme="light"] .step-card::before {
+  background: radial-gradient(
+    320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(0, 133, 122, 0.2) 0%,
+    rgba(0, 133, 122, 0.06) 45%,
+    transparent 80%
+  );
+}
+
+.spotlight-card:hover::before,
+.product-card:hover::before,
+.industry-card:hover::before,
+.pillar-card:hover::before,
+.tech-card:hover::before,
+.why-card:hover::before,
+.step-card:hover::before {
+  opacity: 1;
+}
+
+.product-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
+  padding: 34px 32px 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.card-front {
-  z-index: 2;
+.product-card:hover {
+  border-color: rgba(0, 201, 183, 0.45);
+  box-shadow: 0 12px 36px -10px rgba(0, 201, 183, 0.2);
 }
 
-.card-3d-wrap:hover .card-front,
-.card-3d-wrap.is-flipped .card-front {
-  pointer-events: none;
-}
-
-.card-back {
-  transform: rotateY(180deg);
-  background: linear-gradient(145deg, #ffffff 0%, #f0f7f8 100%);
+[data-theme="light"] .product-card:hover {
   border-color: rgba(0, 133, 122, 0.45);
-  box-shadow: 0 14px 40px -10px rgba(0, 133, 122, 0.18);
-  z-index: 1;
+  box-shadow: 0 12px 36px -10px rgba(0, 133, 122, 0.15);
 }
 
-.card-3d-wrap:hover .card-back,
-.card-3d-wrap.is-flipped .card-back {
-  z-index: 5;
-  pointer-events: auto;
+.product-card-top {
+  display: flex;
+  flex-direction: column;
 }
 
 .card-header-badge {
@@ -790,13 +817,39 @@ img {
   font-size: 0.92rem;
   line-height: 1.6;
   color: var(--text-sub);
+  margin-bottom: 20px;
+}
+
+.product-card-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.product-feature-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-main);
+}
+
+.feature-icon {
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+.product-card-bottom {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
 }
 
 .card-features-mini {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 14px;
 }
 
 .mini-tag {
@@ -809,119 +862,30 @@ img {
   font-weight: 500;
 }
 
-.flip-hint {
+.product-card-footer-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.8rem;
-  color: var(--accent-cyan);
-  margin-top: 16px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  opacity: 0.9;
-}
-
-.flip-icon {
-  transition: transform 0.4s ease;
-}
-
-.card-3d-wrap:hover .flip-icon {
-  transform: rotate(180deg);
-}
-
-.back-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
 }
 
-.back-card-header {
-  margin-bottom: 10px;
-}
-
-.back-card-badge {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--accent-cyan);
-  letter-spacing: 0.08em;
-  padding: 3px 8px;
-  background: rgba(0, 201, 183, 0.12);
-  border-radius: 999px;
-  display: inline-block;
-  margin-bottom: 4px;
-}
-
-.back-card-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin: 0;
-}
-
-.back-section-label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent-cyan);
-  margin-bottom: 8px;
-}
-
-.back-feature-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.back-feature-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 0.85rem;
-  line-height: 1.4;
-  color: var(--text-sub);
-}
-
-.feature-check {
-  color: var(--accent-cyan);
-  font-weight: 700;
-  font-size: 0.9rem;
-  line-height: 1.3;
-  flex-shrink: 0;
-}
-
-.back-meta {
-  font-size: 0.8rem;
+.product-card-meta {
+  font-size: 0.82rem;
   color: var(--text-muted);
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
   line-height: 1.4;
+  flex: 1;
+  min-width: 180px;
 }
 
-.meta-label {
+.product-card-meta .meta-label {
   font-weight: 700;
   color: var(--accent-cyan);
 }
 
-.meta-value {
+.product-card-meta .meta-val {
   color: var(--text-sub);
-}
-
-.back-card-footer {
-  margin-top: 14px;
-}
-
-.back-card-footer .btn {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* Stepper Journey Roadmap */

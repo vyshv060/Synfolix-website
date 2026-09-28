@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
+import synfolixLogo from '../assets/synfolix-logo.png';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -108,7 +109,7 @@ export default function Header() {
           className="brand-logo"
           onClick={(e) => handleNavClick(e, { id: 'hero', href: '#hero' })}
         >
-          <img src="/v quality synfolix pvt ltd.png" alt="Synfolix Logo" className="site-logo-img" />
+          <img src={synfolixLogo} alt="Synfolix Logo" className="site-logo-img" />
           <span className="logo-text">SYNFOLIX<span className="logo-dot">.</span></span>
         </a>
 
