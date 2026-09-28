@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SplashOverlay from './components/SplashOverlay';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -15,40 +15,9 @@ import DemoModal from './components/DemoModal';
 import Toast from './components/Toast';
 
 export default function App() {
-  const [theme, setThemeState] = useState(() => {
-    return localStorage.getItem('synfolix-theme') || 'light';
-  });
-
-  const fontSizes = ['small', 'normal', 'large', 'xlarge'];
-  const [fontSizeIndex, setFontSizeIndex] = useState(() => {
-    const saved = parseInt(localStorage.getItem('synfolix-font-index'), 10);
-    return isNaN(saved) ? 1 : saved;
-  });
-
   const [toasts, setToasts] = useState([]);
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [demoProductTitle, setDemoProductTitle] = useState('');
-
-  // Apply theme attribute to html element
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('synfolix-theme', theme);
-  }, [theme]);
-
-  // Apply font size attribute to html element
-  useEffect(() => {
-    const validIndex = Math.max(0, Math.min(fontSizes.length - 1, fontSizeIndex));
-    document.documentElement.setAttribute('data-font-size', fontSizes[validIndex]);
-    localStorage.setItem('synfolix-font-index', validIndex);
-  }, [fontSizeIndex]);
-
-  const toggleTheme = () => {
-    setThemeState(prev => (prev === 'dark' ? 'light' : 'dark'));
-  };
-
-  const applyFontSize = (index) => {
-    setFontSizeIndex(Math.max(0, Math.min(fontSizes.length - 1, index)));
-  };
 
   const showToast = (message) => {
     setToasts(prev => [...prev, message]);
@@ -69,13 +38,8 @@ export default function App() {
   return (
     <>
       <SplashOverlay />
-      <Header
-        theme={theme}
-        toggleTheme={toggleTheme}
-        fontSizeIndex={fontSizeIndex}
-        applyFontSize={applyFontSize}
-      />
-      <Hero theme={theme} />
+      <Header />
+      <Hero />
       <Pillars />
       <ProductsSection openDemoModal={openDemoModal} />
       <BuildWithUs />

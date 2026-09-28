@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export default function HeroConstellation({ theme }) {
+export default function HeroConstellation() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -65,8 +65,7 @@ export default function HeroConstellation({ theme }) {
       }
 
       draw() {
-        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        const mainColor = isLight ? 'rgba(0, 140, 130,' : 'rgba(0, 201, 183,';
+        const mainColor = 'rgba(0, 140, 130,';
 
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -89,8 +88,7 @@ export default function HeroConstellation({ theme }) {
     }
 
     function drawLines() {
-      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-      const lineColor = isLight ? '0, 150, 138' : '0, 201, 183';
+      const lineColor = '0, 150, 138';
       const maxDistance = 145;
 
       for (let i = 0; i < particles.length; i++) {
@@ -163,7 +161,7 @@ export default function HeroConstellation({ theme }) {
       heroSection.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [theme]);
+  }, []);
 
   return <canvas ref={canvasRef} id="heroConstellationCanvas" className="hero-constellation-canvas" />;
 }

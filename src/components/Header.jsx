@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Sun, Moon, ArrowRight, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 
-export default function Header({ theme, toggleTheme, fontSizeIndex, applyFontSize }) {
+export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileActive, setMobileActive] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -135,35 +135,6 @@ export default function Header({ theme, toggleTheme, fontSizeIndex, applyFontSiz
         </nav>
 
         <div className="header-actions">
-          {/* Font Resizer */}
-          <div className="font-resizer-group" title="Adjust Text Size">
-            <button
-              className={`font-btn ${fontSizeIndex === 0 ? 'active' : ''}`}
-              onClick={() => applyFontSize(fontSizeIndex - 1)}
-            >
-              A-
-            </button>
-            <button
-              className={`font-btn ${fontSizeIndex === 1 ? 'active' : ''}`}
-              onClick={() => applyFontSize(1)}
-            >
-              A
-            </button>
-            <button
-              className={`font-btn ${fontSizeIndex >= 2 ? 'active' : ''}`}
-              onClick={() => applyFontSize(fontSizeIndex + 1)}
-            >
-              A+
-            </button>
-          </div>
-
-          {/* Theme Toggle */}
-          <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle Theme">
-            <Sun className="icon-sun" />
-            <Moon className="icon-moon" />
-            <span className="toggle-slider"></span>
-          </button>
-
           <a href="#contact" className="btn btn-primary btn-glow nav-cta" onClick={handleCtaClick}>
             <span>Build With Synfolix</span>
             <ArrowRight size={16} />

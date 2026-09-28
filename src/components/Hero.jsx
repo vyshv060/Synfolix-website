@@ -1,11 +1,11 @@
 import { Layers, Rocket } from 'lucide-react';
 import HeroConstellation from './HeroConstellation';
 
-export default function Hero({ theme }) {
+export default function Hero() {
   return (
     <section className="hero-section" id="hero">
       <div className="hero-gradient-overlay"></div>
-      <HeroConstellation theme={theme} />
+      <HeroConstellation />
 
       <div className="container hero-container">
         <div className="hero-content">
