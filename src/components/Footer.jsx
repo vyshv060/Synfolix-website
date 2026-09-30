@@ -1,4 +1,4 @@
-import synfolixLogo from '../assets/synfolix-logo.png';
+import jusLogo from '../assets/jus logo.png';
 
 export default function Footer() {
   return (
@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <a href="#hero" className="brand-logo">
-              <img src={synfolixLogo} alt="Synfolix Logo" className="site-logo-img" />
+              <img src={jusLogo} alt="Synfolix Logo" className="site-logo-img" />
               <span className="logo-text">SYNFOLIX<span className="logo-dot">.</span></span>
             </a>
             <p className="footer-tagline">We build digital products that solve real business problems across industries.</p>
